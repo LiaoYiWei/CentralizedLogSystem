@@ -1,0 +1,215 @@
+{"text":".","children": [
+    {
+        taskName:'UPSI',
+        receivedLogSize:12,
+		receivedLogCount:10,
+		clientLogQueueSize:10,
+		serverLogQueueSize:11,
+        iconCls:'task-folder',
+        expanded: true,
+        children:[{
+            taskName:'DEV',
+            receivedLogSize:2,
+			receivedLogCount:1,
+			clientLogQueueSize:1,
+			serverLogQueueSize:1,
+            iconCls:'task-folder',
+            children:[{
+                taskName:'Node One',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Two',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Three',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName: 'Node Four',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf: true,
+                iconCls: 'task'
+            }]
+        }, {
+            taskName:'ITG',
+            receivedLogSize:2,
+			receivedLogCount:1,
+			clientLogQueueSize:1,
+			serverLogQueueSize:1,
+            iconCls:'task-folder',
+            expanded: true,
+            children:[{
+                taskName:'Node One',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Two',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Three',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName: 'Node Four',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf: true,
+                iconCls: 'task'
+            }]
+        }]
+    },{
+        taskName:'SADB',
+        receivedLogSize:1711,
+		receivedLogCount:1811,
+		clientLogQueueSize:111,
+		serverLogQueueSize:111,
+        iconCls:'task-folder',
+        expanded: true,
+        children:[{
+            taskName:'DEV',
+            receivedLogSize:2,
+			receivedLogCount:1,
+			clientLogQueueSize:1,
+			serverLogQueueSize:1,
+            iconCls:'task-folder',
+            children:[{
+                taskName:'Node One',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Two',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Three',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName: 'Node Four',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf: true,
+                iconCls: 'task'
+            }]
+        },{
+            taskName:'FUT',
+            receivedLogSize:2,
+			receivedLogCount:1,
+			clientLogQueueSize:1,
+			serverLogQueueSize:1,
+            iconCls:'task-folder',
+            children:[{
+                taskName:'Node One',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Two',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Three',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            }]
+        }, {
+            taskName:'ITG',
+            receivedLogSize:2,
+			receivedLogCount:1,
+			clientLogQueueSize:1,
+			serverLogQueueSize:1,
+            iconCls:'task-folder',
+            expanded: true,
+            children:[{
+                taskName:'Node One',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Two',
+                receivedLogSize:2,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName:'Node Three',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf:true,
+                iconCls:'task'
+            },{
+                taskName: 'Node Four',
+                receivedLogSize:1,
+				receivedLogCount:1,
+				clientLogQueueSize:1,
+				serverLogQueueSize:1,
+                leaf: true,
+                iconCls: 'task'
+            }]
+        }]
+    }
+]}

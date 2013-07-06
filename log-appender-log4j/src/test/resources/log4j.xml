@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+
+<log4j:configuration>
+        
+  <appender name="CENTRAL_LOG" class="com.hp.et.log.appender.log4j.CentralAppender">
+     <param name="serviceHttpUrl" value="http://16.158.82.245:8080/log-service-0.0.1-SNAPSHOT"/> 
+     <param name="appName" value="TEST-APP"/> 
+<!--      <envLoader class="com.hp.et.log.appender.DefaultEnvLoader"> -->
+<!--      	<param name="env" value="DEV"/>  -->
+<!--      </envLoader>  -->
+	   <logSender class = "com.hp.et.log.appender.AsynLogSender">
+	   	   <param name="threads" value="1"/>
+		   <logQueue class = "com.hp.et.log.appender.LogQueue" >
+		   		<param name="batchSize" value="20"/>
+		   		<param name="queueCapacity" value="10000"/>
+		   		<extraQueuePolicy class = "com.hp.et.log.appender.DefaultExtraQueuePolicy" > 
+		   			<param name="extraQueueSize" value="10"/>
+				</extraQueuePolicy>
+		   		<suppressLogPolicy class = "com.hp.et.log.appender.SuppressSystemLogPolicy" > 
+		   			<param name="suppressTimeoutSec" value="30"/>
+		   		</suppressLogPolicy>
+		   </logQueue>	   
+	   </logSender>  
+  </appender>
+
+  <root>
+    <priority value ="info" />
+    <appender-ref ref="CENTRAL_LOG"/>
+  </root>
+
+</log4j:configuration>

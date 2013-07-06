@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+			http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="logdb" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.hp.et.log.entity.Application</class>
+		<class>com.hp.et.log.entity.AppEnv</class>
+		<class>com.hp.et.log.entity.Host</class>
+		<class>com.hp.et.log.entity.Event</class>
+		<class>com.hp.et.log.entity.AppEnvNode</class>
+		<class>com.hp.et.log.entity.RuntimeInstance</class>
+		<class>com.hp.et.log.entity.RejectHostHistory</class>
+		<class>com.hp.et.log.entity.AppEnvRule</class>
+		<class>com.hp.et.log.entity.AppEnvRuleSimple</class>
+		<class>com.hp.et.log.entity.AppEnvRuleAdvance</class>
+		
+   	 	<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.query.factory_class" value="org.hibernate.hql.classic.ClassicQueryTranslatorFactory" />
+		</properties>
+	    
+	</persistence-unit>
+
+</persistence>

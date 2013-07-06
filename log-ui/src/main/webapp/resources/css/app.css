@@ -1,0 +1,82 @@
+.search72 {
+	background-image: url( ../icons/Search-Computer-icon.png) !important;
+}
+
+.monitor72 {
+	background-image: url( ../icons/App-terminal-icon.png) !important;
+}
+.monitorLoad72 {
+	background-image: url( ../icons/App-terminal-icon.png) !important;
+}
+.emailCfg72 {
+	background-image: url( ../icons/Apps-internet-mail-icon.png) !important;
+}
+
+.traffic72 {
+	background-image: url( ../icons/chart-search-icon.png) !important;
+}
+
+.script72 {
+	background-image: url( ../icons/Mimetypes-text-x-script-icon.png) !important;
+}
+.help72{
+	background-image: url( ../icons/help-icon.png) !important;
+}
+.desktopBg{
+	background-image: url( ../images/hp_backgroud.jpg) !important;
+	background-position:left top;
+}
+.add {
+	background-image: url( app/resources/images/add.gif ) !important;
+}
+
+.add16 {
+	background-image: url( ../images/add16.gif ) !important;
+}
+
+.add24 {
+	background-image: url( images/add24.gif ) !important;
+}
+
+.remove {
+	background-image: url( ../menu/images/delete.gif ) !important;
+}
+
+.edit {
+	background-image: url( ../menu/images/edit.gif ) !important;
+}
+
+.find {
+	background-image: url( ../menu/images/find.gif ) !important;
+}
+
+.view {
+	background-image: url( ../menu/images/view.gif ) !important;
+}
+.monitor_start_disabled{
+	background-image: url( ../icons/Play-Disabled-icon-16.png) !important;
+}
+.monitor_start_normal{
+	background-image: url( ../icons/Play-Normal-icon-16.png) !important;
+}
+.monitor_stop_disabled{
+	background-image: url( ../icons/Stop-Disabled-icon-16.png) !important;
+}
+.monitor_stop_normal{
+	background-image: url( ../icons/Stop-Normal-Blue-icon-16.png) !important;
+}
+
+.x-grid-row,.x-grid-cell,.x-unselectable,.x-unselectable * {
+	-webkit-user-select: text !important;
+	-o-user-select: text !important;
+	-khtml-user-select: all !important;
+	-ms-user-select: text !important;
+	user-select: text !important;
+	-moz-user-select: text !important;
+}
+.inactive {
+	background-color: #FF734C !important;
+}
+.active {
+	background-color: #53FF48 !important;
+}

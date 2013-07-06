@@ -1,0 +1,18 @@
+Hi All, 
+
+You are getting this email because of a log rule violation reported. 
+
+ApplicationName:       $!basis.appName
+EnvironmentName:       $!basis.envName
+NodeName:              $!basis.nodeName
+HostName:              $!basis.hostName
+HostIP:                $!basis.hostIp
+RullName:              $!rule.ruleName
+
+LOG Detail: 
+$!time [$!event.threadName] $!severity  $!{event.loggerName} - $!{event.message}	
+$!{event.throwableMessage}
+
+
+Sincerely,
+Central-Log-Support-Team

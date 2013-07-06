@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true" scanPeriod="1 minute" debug="true">
+	<contextName>test</contextName>
+
+	<appender name="CENTRAL_LOG" class="com.hp.et.log.appender.logback.CentralAppender">
+	   <!--<serviceHttpUrl> http://localhost:8080/log-service-0.0.1-SNAPSHOT </serviceHttpUrl>-->
+        <serviceHttpUrl> http://sbs-server2.asiapacific.hpqcorp.net:8780/log-service </serviceHttpUrl>
+	   <appName> TEST-APP-QI </appName>
+<!-- 	   <envLoader class="com.hp.et.log.appender.DefaultEnvLoader"> -->
+<!-- 	   		<env> DEV </env>	 -->
+<!-- 	   </envLoader> -->
+
+<!-- 	   <nodeLoader class="com.hp.et.log.appender.DefaultNodeLoader"> -->
+<!-- 	   		<node> node1 </node>	 -->
+<!-- 	   </nodeLoader> -->
+
+	   <logSender class = "com.hp.et.log.appender.AsynLogSender">
+	   	   <threads> 1</threads>
+		   <logQueue class = "com.hp.et.log.appender.LogQueue" >
+		   		<batchSize> 200</batchSize>
+		   		<queueCapacity> 100000</queueCapacity>
+		   		<extraQueuePolicy class = "com.hp.et.log.appender.DefaultExtraQueuePolicy" > 
+		   			<extraQueueSize> 1000</extraQueueSize>
+				</extraQueuePolicy>
+		   		<suppressLogPolicy class = "com.hp.et.log.appender.SuppressSystemLogPolicy" > 
+		   			<suppressTimeoutSec> 30</suppressTimeoutSec>
+		   		</suppressLogPolicy>
+		   </logQueue>	   
+		   <!--<heartBeatIntervalSec> 10 </heartBeatIntervalSec>-->
+	   </logSender>  
+		
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="CENTRAL_LOG" />
+	</root>
+</configuration>

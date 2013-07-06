@@ -1,0 +1,9 @@
+Ext.define("Log.model.EnvAppName",{
+	extend:"Ext.data.Model",
+	fields:[
+		{name:"envId",type:"string"},
+		{name:"envName",type:"string"},	
+		{name:"appId",type:"string"},
+		{name:"appName",type:"string"}
+	]
+});

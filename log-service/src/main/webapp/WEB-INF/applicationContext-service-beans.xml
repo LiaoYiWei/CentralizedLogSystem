@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans xmlns="http://www.springframework.org/schema/beans" -->
+<!-- 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
+<!-- 	xmlns:context="http://www.springframework.org/schema/context"  -->
+<!-- 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/cache 
+		http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:annotation-config/>
+	<cache:annotation-driven order="1" />
+	
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" p:cache-manager-ref="ehcache"/>
+
+	<!-- Ehcache library setup -->
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="classpath:ehcache.xml"/>
+
+	<bean id="appEnvDao" class="com.hp.et.log.dao.jpaimpl.AppEnvJpaDao"> 
+	</bean>
+	
+	<bean id="appEnvNodeDao" class="com.hp.et.log.dao.jpaimpl.AppEnvNodeJpaDao"> 
+	</bean>
+	
+	<bean id="applicationDao" class="com.hp.et.log.dao.jpaimpl.ApplicationJpaDao"> 
+	</bean>
+	
+	<bean id="eventDao" class="com.hp.et.log.dao.jpaimpl.EventJpaDao"> 
+	</bean>
+	
+	<bean id="hostDao" class="com.hp.et.log.dao.jpaimpl.HostJpaDao"> 
+	</bean>
+	
+	<bean id="appEnvRuleDao" class="com.hp.et.log.dao.jpaimpl.AppEnvRuleJpaDao"> 
+	</bean>
+	
+	<bean id="runtimeInstanceDao" class="com.hp.et.log.dao.jpaimpl.RuntimeInstanceJpaDao"> 
+	</bean>
+	
+	<bean id="rejectHostHistoryDao" class="com.hp.et.log.dao.jpaimpl.RejectHostHistoryJpaDao"> 
+	</bean>
+	
+	<bean id="cacheService" class="com.hp.et.log.cache.CacheService" autowire="byName"> </bean>
+	
+	<bean id="ruleCacheService" class="com.hp.et.log.cache.RuleCacheService" autowire="byName"> </bean>
+	
+	<bean id="metricsManager" class="com.hp.et.log.metrics.MetricsManager" init-method="init" autowire="byName" > </bean>
+
+	<bean id="executorService" class="java.util.concurrent.Executors"
+		factory-method="newFixedThreadPool">
+		<constructor-arg>
+			<value>50</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="appRuleEngineLoader" class="com.hp.et.log.rules.AppRuleEngineLoader">
+	</bean>
+	
+	<bean id="ruleEngineService" class="com.hp.et.log.rules.RuleEngineService" autowire="byName">
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+		<property name="appRuleEngineLoader" ref="appRuleEngineLoader" />
+	</bean>
+
+	<bean id="eventExecuteService" class="com.hp.et.log.service.EventExecuteService" autowire="byName">
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+		<property name="ruleEngineService" ref="ruleEngineService" />
+		<property name="monitorMng" ref="defaultMonitorManager" />
+	</bean>
+
+	<bean id="eventResource" class="com.hp.et.log.service.EventResource" autowire="byName">
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+		<property name="eventExecuteService" ref="eventExecuteService" />
+		<property name="executorService" ref="executorService" />
+	</bean>
+
+	<bean id="applicationResource" class="com.hp.et.log.service.ApplicationResource" autowire="byName">
+		
+	</bean>
+	
+	<bean id="emailService" class="com.hp.et.log.service.EmailService" autowire="byName">
+	</bean>
+	
+	<bean id="appEnvRuleResource" class="com.hp.et.log.service.AppEnvRuleResource" autowire="byName">
+	</bean>
+	
+	
+	<!-- <bean id="appEnvRuleCacheDecorator" class="com.hp.et.log.service.AppEnvRuleCacheDecorator" autowire="byName">
+		<constructor-arg name="appEnvRuleService" ref="appEnvRuleService"/>
+	</bean> -->
+	
+	<bean id="hostResource" class="com.hp.et.log.service.HostResource" autowire="byName">
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+	</bean>
+
+	<bean id="authentication" class="com.hp.et.log.service.Authentication" autowire="byName">
+<!-- 		<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+	</bean>
+
+	<bean id="fileTransferResource" class="com.hp.et.log.service.FileTransferResource">
+		<property name="ruleEngineAware" ref="ruleEngineService" />
+	</bean>
+
+
+	<bean id="monitorService" class="com.hp.et.log.service.MonitorService" autowire="byName">
+		<property name="monitorMng" ref="defaultMonitorManager" />
+<!-- 		<property name="runtimeInstanceDao" ref="runtimeInstanceDao" /> -->
+<!-- 		<property name="metricsManager" ref="metricsManager" /> -->
+	</bean>
+
+	<bean id="defaultMonitorManager" class="com.hp.et.log.monitor.DefaultMonitorManager"
+		factory-method="getInstance">
+		<property name="cacheService" ref="cacheService" />
+		<property name="timeout" value="10000" />
+	</bean>
+	
+	
+	<bean id="dbCleanupJob" class="com.hp.et.log.job.DbCleanupJob"  autowire="byName"/>
+ 
+    <!-- create the Job -->
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="dbCleanupJob" />
+        <property name="targetMethod" value="execute" />
+    </bean>
+ 
+    <!-- create the Trigger with a Schedule that runs every 5 seconds -->
+    <bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="jobDetail" />
+        <property name="cronExpression" value="0 59 23 * * ?" />
+     </bean>
+ 
+     <!-- schedule the Job -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers" ref="trigger" />
+    </bean>
+
+</beans>

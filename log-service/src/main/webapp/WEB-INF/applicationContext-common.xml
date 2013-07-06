@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:datasource.properties" />
+	</bean>
+
+	<!-- use JNDI to config the datasource -->
+	<!--<bean id="loggerDs" class="org.springframework.jndi.JndiObjectFactoryBean">  
+	    <property name="jndiName" value="java:comp/env/jdbc/logger"></property>  
+	</bean>-->
+
+	<!-- <bean id="logJpaDs" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>-->
+	
+	<!-- use c3p0 data source to reconnect database -->
+	<bean id="logJpaDs" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+   		<property name="driverClass" value="${db.driver}"></property>
+   		<property name="jdbcUrl" value="${db.url}"></property>
+  	 	<property name="user" value="${db.username}"></property>
+   		<property name="password" value="${db.password}"></property>
+   		<property name="minPoolSize"><value>2</value></property>
+   		<property name="maxPoolSize"><value>10</value></property>
+   		<property name="maxIdleTime"><value>60</value></property>
+   		<property name="acquireIncrement"><value>2</value></property>
+   		<property name="maxStatements"><value>0</value></property>
+   		<property name="initialPoolSize"><value>5</value></property>
+  		<property name="idleConnectionTestPeriod"><value>60</value></property>
+   		<property name="acquireRetryAttempts"><value>10</value></property>
+   		<property name="acquireRetryDelay"><value>1000</value></property>
+   		<property name="breakAfterAcquireFailure"><value>false</value></property>
+  		<property name="testConnectionOnCheckout"><value>false</value></property>
+  		<property name="testConnectionOnCheckin"><value>false</value></property>
+	</bean> 
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="logJpaDs" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="false" />
+				<property name="database" value="ORACLE" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>
+			</props>
+		</property>
+	</bean>
+
+	
+	
+	<!-- to avoid repeated loading the datasource: use JPA transaction to replace the transaction of jdbc-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"  ref="entityManagerFactory" /> 
+	</bean>
+
+	<!-- <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean> -->
+
+ 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+			
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="allManagerMethod"
+			expression="execution(* com.hp.et.log.service.*.*(..))" />
+		<aop:pointcut id="cacheMethod"
+			expression="execution(* com.hp.et.log.cache.*.*(..))" />
+		<aop:pointcut id="ruleDaoMethod"
+			expression="execution(* com.hp.et.log.dao.jpaimpl.*.*(..))" />
+			
+		<aop:advisor pointcut-ref="ruleDaoMethod" advice-ref="txAdvice" order="1"/>	
+		<aop:advisor pointcut-ref="allManagerMethod" advice-ref="txAdvice" order="2"/>				
+		<aop:advisor pointcut-ref="cacheMethod" advice-ref="txAdvice" order="2"/>
+	</aop:config>
+
+</beans>
